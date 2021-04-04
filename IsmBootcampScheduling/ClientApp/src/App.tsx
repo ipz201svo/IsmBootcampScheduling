@@ -6,11 +6,14 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 
 import './custom.css'
+import {LoginForm} from "./components/LoginForm";
 
 export default () => (
-    <Layout>
+    /*<Layout>
+        <LoginForm />
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
-    </Layout>
+    </Layout>*/
+    <LoginForm />
 );
