@@ -3,11 +3,17 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
 import { ApplicationState, reducers } from './';
+import createSagaMiddleware from 'redux-saga'
+import loginFormSaga from "../features/loginForm/loginFormSaga";
+
+
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
     const middleware = [
-        thunk,
-        routerMiddleware(history)
+        /*thunk,*/
+        sagaMiddleware,
+        /*routerMiddleware(history)*/
     ];
 
     const rootReducer = combineReducers({
@@ -21,9 +27,15 @@ export default function configureStore(history: History, initialState?: Applicat
         enhancers.push(windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__());
     }
 
-    return createStore(
+    const store = createStore(
         rootReducer,
         initialState,
         compose(applyMiddleware(...middleware), ...enhancers)
     );
+
+    sagaMiddleware.run(loginFormSaga);
+
+    return store;
 }
+
+
