@@ -11,7 +11,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
     const middleware = [
-        /*thunk,*/
         sagaMiddleware,
         /*routerMiddleware(history)*/
     ];

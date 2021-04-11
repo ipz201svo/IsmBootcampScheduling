@@ -1,6 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import {Action} from "redux";
-import {actionCreators} from "./LoginFormSlice";
+import {actionCreators} from "./LoginFormReducer";
 
 function* watchSubmit() {
     yield takeEvery('LOGINFORM_SUBMIT', fetchUser);

@@ -36,7 +36,7 @@ export const actionCreators = {
 
 const initialState: ILoginFormState = {
     isLoading: false,
-    valid: undefined
+    valid: true
 }
 
 export const reducer: Reducer<ILoginFormState> =

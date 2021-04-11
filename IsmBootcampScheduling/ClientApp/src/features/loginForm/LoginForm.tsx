@@ -3,7 +3,7 @@ import {connect, useDispatch} from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import {ApplicationState} from '../../store';
 import {useState} from "react";
-import * as LoginFormStore from './LoginFormSlice';
+import * as LoginFormStore from './LoginFormReducer';
 
 
 type loginFormProps =
@@ -16,7 +16,7 @@ export const LoginForm: (props: loginFormProps) => JSX.Element = (props: loginFo
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const dispatch = useDispatch()
+    /*const dispatch = useDispatch()*/
 
     const onEmailChanged = (e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value);
     const onPasswordChanged = (e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value);

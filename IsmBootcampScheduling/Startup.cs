@@ -1,11 +1,18 @@
+using System;
+using GraphiQl;
+using IsmBootcampScheduling.Schema;
+using IsmBootcampScheduling.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Transports.AspNetCore;
+using GraphQL.Types;
 
 namespace IsmBootcampScheduling
 {
@@ -28,6 +35,27 @@ namespace IsmBootcampScheduling
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<UserType>();
+            services.AddSingleton<UsersQuery>();
+            services.AddSingleton<UsersSchema>();
+            services.AddSingleton<ISchema, UsersSchema>();
+            services.AddGraphQL(options =>
+                {
+                    options.EnableMetrics = true;
+                })
+                .AddSystemTextJson() // For .NET Core 3+
+                //.AddWebSockets() // Add required services for web socket support
+                .AddDataLoader() // Add required services for DataLoader support
+                .AddGraphTypes(
+                    typeof(UsersSchema)); // Add all IGraphType implementors in assembly which ChatSchema exists 
+
+
+            //services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +72,14 @@ namespace IsmBootcampScheduling
                 app.UseHsts();
             }
 
+            app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseWebSockets();
+            app.UseGraphiQl();
+            /*app.UseGraphQLHttp<>();*/
+            app.UseGraphQL<ISchema>();
 
             app.UseRouting();
 
