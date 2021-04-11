@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Types;
 using IsmBootcampScheduling.Data;
-using IsmBootcampScheduling.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

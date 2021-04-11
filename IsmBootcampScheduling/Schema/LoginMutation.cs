@@ -6,7 +6,6 @@ using GraphQL;
 using GraphQL.Types;
 using IsmBootcampScheduling.Data;
 using IsmBootcampScheduling.Models;
-using IsmBootcampScheduling.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IsmBootcampScheduling.Schema

@@ -1,7 +1,6 @@
 using System;
 using GraphiQl;
 using IsmBootcampScheduling.Schema;
-using IsmBootcampScheduling.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,7 +40,6 @@ namespace IsmBootcampScheduling
             });
 
 
-            services.AddSingleton<IUserService, UserService>();
 
             services.AddSingleton<UserType>();
             services.AddSingleton<LoginInputType>();
