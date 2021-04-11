@@ -13,6 +13,8 @@ using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Transports.AspNetCore;
 using GraphQL.Types;
+using IsmBootcampScheduling.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace IsmBootcampScheduling
 {
@@ -28,6 +30,8 @@ namespace IsmBootcampScheduling
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -38,10 +42,17 @@ namespace IsmBootcampScheduling
 
 
             services.AddSingleton<IUserService, UserService>();
+
             services.AddSingleton<UserType>();
+            services.AddSingleton<LoginInputType>();
+
             services.AddSingleton<UsersQuery>();
+
+            services.AddSingleton<LoginMutation>();
+
             services.AddSingleton<UsersSchema>();
             services.AddSingleton<ISchema, UsersSchema>();
+
             services.AddGraphQL(options =>
                 {
                     options.EnableMetrics = true;
@@ -53,7 +64,7 @@ namespace IsmBootcampScheduling
                     typeof(UsersSchema)); // Add all IGraphType implementors in assembly which ChatSchema exists 
 
 
-            //services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
 
         }

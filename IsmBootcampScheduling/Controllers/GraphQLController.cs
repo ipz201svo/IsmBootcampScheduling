@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using GraphQL;
 using GraphQL.NewtonsoftJson;
 using GraphQL.Types;
+using IsmBootcampScheduling.Data;
 using IsmBootcampScheduling.Schema;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IsmBootcampScheduling.Controllers
 {
@@ -35,7 +37,7 @@ namespace IsmBootcampScheduling.Controllers
             {
                 Schema = _schema,
                 Query = query.Query,
-                Inputs = inputs
+                Inputs = inputs,
             };
 
             var result = await _documentExecuter.ExecuteAsync(executionOptions);
