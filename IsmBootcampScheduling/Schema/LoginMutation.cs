@@ -30,10 +30,10 @@ namespace IsmBootcampScheduling.Schema
                         return null;
                     }
 
-                    if (user.Password != loginFields.Password)
-                    {
-                        return null;
-                    }
+                    //if (user.Password != loginFields.Password)
+                    //{
+                    //    return null;
+                    //}
 
                     return user;
                 }

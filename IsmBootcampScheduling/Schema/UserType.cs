@@ -16,6 +16,8 @@ namespace IsmBootcampScheduling.Schema
             Field(u => u.Email);
 
             Field(u => u.Password);
+
+            Field(u => u.Salt);
         }
     }
 }

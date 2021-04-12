@@ -25,19 +25,17 @@ export interface ISubmitLoginFormAction {
 
 export interface ISucceedPayload {
     email: string,
-    password: string
 }
 
 export const actionCreators = {
-    succeed: (email: string, password: string) => ({
+    succeed: (email: string) => ({
         type: 'LOGINFORM_SUCCEED',
         payload: {
             email,
-            password
         }
     }) as ISucceedLoginFormAction,
 
-    failed: () => ({type: 'LOGINFORM_FAILED'} as IFailedLoginFormAction),
+    failed: () => ({ type: 'LOGINFORM_FAILED' } as IFailedLoginFormAction),
 
     submit: (email: string, password: string) => ({
         type: 'LOGINFORM_SUBMIT',
@@ -63,6 +61,7 @@ export const reducer: Reducer<ILoginFormState> =
             }
 
         case 'LOGINFORM_SUCCEED':
+            console.log('access given');
             return {
                 ...state,
                 valid: true,
@@ -70,6 +69,7 @@ export const reducer: Reducer<ILoginFormState> =
             };
 
         case 'LOGINFORM_FAILED':
+            console.log('access not given');
             return {
                 ...state,
                 valid: false,
