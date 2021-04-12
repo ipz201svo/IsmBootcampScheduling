@@ -7,7 +7,8 @@ export interface ILoginFormState {
 }
 
 export interface ISucceedLoginFormAction {
-    type: 'LOGINFORM_SUCCEED'
+    type: 'LOGINFORM_SUCCEED',
+    payload: ISucceedPayload
 }
 
 export interface IFailedLoginFormAction {
@@ -22,9 +23,22 @@ export interface ISubmitLoginFormAction {
     }
 }
 
+export interface ISucceedPayload {
+    email: string,
+    password: string
+}
+
 export const actionCreators = {
-    succeed: () => ({type: 'LOGINFORM_SUCCEED'} as ISucceedLoginFormAction),
+    succeed: (email: string, password: string) => ({
+        type: 'LOGINFORM_SUCCEED',
+        payload: {
+            email,
+            password
+        }
+    }) as ISucceedLoginFormAction,
+
     failed: () => ({type: 'LOGINFORM_FAILED'} as IFailedLoginFormAction),
+
     submit: (email: string, password: string) => ({
         type: 'LOGINFORM_SUBMIT',
         payload: {
