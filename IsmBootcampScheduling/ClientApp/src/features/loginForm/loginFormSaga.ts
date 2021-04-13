@@ -24,17 +24,17 @@ function* sagaWorker(action: ISubmitLoginFormAction) {
             body: JSON.stringify(
                 {
                     query: `
-                    mutation($em: String!) {
-                        login(loginFields: {email: $em}) {
+                    mutation($em: String!, $pas: String!) {
+                        login(loginFields: {email: $em, password: $pas}) {
                         id
                         email
                         password
-                        salt
                         }
                     }
                         `,
                     variables: {
                         em: `${action.payload.email}`,
+                        pas: `${action.payload.password}`,
                     }
                 }
             )
@@ -42,21 +42,21 @@ function* sagaWorker(action: ISubmitLoginFormAction) {
 
         console.log(result);
 
-        let thingToHash = action.payload.password + result.data.login.salt;
-        let hashResult = sha256(thingToHash);
+        //let thingToHash = action.payload.password + result.data.login.salt;
+        //let hashResult = sha256(thingToHash);
 
-        console.log(hashResult);
+        //console.log(hashResult);
 
-        if (result.data.login !== null && hashResult === result.data.login.password)
-            yield put(actionCreators.succeed(result.data.login.email));
-        else
-            yield put(actionCreators.failed());
-        
-        
-        //if (result.data.login === null)
-        //    yield put(actionCreators.failed());
-        //else
+        //if (result.data.login !== null && hashResult === result.data.login.password)
         //    yield put(actionCreators.succeed(result.data.login.email));
+        //else
+        //    yield put(actionCreators.failed());
+        
+        
+        if (result.data.login === null)
+            yield put(actionCreators.failed());
+        else
+            yield put(actionCreators.succeed(result.data.login.email));
         /*yield delay(2000);*/
         console.log('finish fetching');
 

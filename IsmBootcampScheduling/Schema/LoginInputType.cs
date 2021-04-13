@@ -14,7 +14,7 @@ namespace IsmBootcampScheduling.Schema
 
             Field<NonNullGraphType<StringGraphType>>("email");
 
-            //Field< NonNullGraphType<StringGraphType>>("password");
+            Field< NonNullGraphType<StringGraphType>>("password");
         }
     }
 }
